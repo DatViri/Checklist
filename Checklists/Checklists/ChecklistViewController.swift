@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController {
+class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
     
     // This declares that items will hold an array of ChecklistItem objects
     // but it does not actually create that array.
@@ -49,20 +49,6 @@ class ChecklistViewController: UITableViewController {
         row4item.checked = true
         items.append(row4item)
         
-        let row5item = ChecklistItem()
-        row5item.text = "Clean the house"
-        row5item.checked = true
-        items.append(row5item)
-        
-        let row6item = ChecklistItem()
-        row6item.text = "Play computer game"
-        row6item.checked = true
-        items.append(row6item)
-        
-        let row7item = ChecklistItem()
-        row7item.text = "Drink water"
-        row7item.checked = true
-        items.append(row7item)
         
         super.init(coder: aDecoder)
     }
@@ -98,8 +84,16 @@ class ChecklistViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func configureCheckmarkForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        //1 remove item from data model
+        items.remove(at: indexPath.row)
         
+        //2 remove row from table
+        let indexPaths = [indexPath]
+        tableView.deleteRows(at: indexPaths as [IndexPath], with: .automatic)
+    }
+    
+    func configureCheckmarkForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
         if item.checked {
             cell.accessoryType = .checkmark
         } else {
@@ -110,6 +104,37 @@ class ChecklistViewController: UITableViewController {
     func configureTextForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem){
         let label = cell.viewWithTag(1000) as! UILabel
         label.text = item.text
+    }
+    
+    
+    func addItemViewControllerDidCancel(controller: AddItemViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ChecklistItem) {
+        
+        let newRowIndex = items.count
+        items.append(item)
+        
+        let indexPath = NSIndexPath(row: newRowIndex, section: 0)
+        let indexPaths = [indexPath]
+        tableView.insertRows(at: indexPaths as [IndexPath],
+                             with: .automatic)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //1
+        if segue.identifier == "AddItem" {
+            // 2
+            let navigationController = segue.destination
+                as! UINavigationController
+            // 3
+            let controller = navigationController.topViewController
+                as! AddItemViewController
+            // 4
+            controller.delegate = self
+        }
     }
     
 }
