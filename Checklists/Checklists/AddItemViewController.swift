@@ -12,19 +12,36 @@ protocol AddItemViewControllerDelegate: class {
     func addItemViewControllerDidCancel(controller: AddItemViewController)
     func addItemViewController(controller:AddItemViewController,
                                didFinishAddingItem item: ChecklistItem)
+    func addItemViewController(controller: AddItemViewController,
+                               didFinishEditingItem item: ChecklistItem)
 }
 
 class AddItemViewController: UITableViewController, UITextFieldDelegate{
+    var itemToEdit: ChecklistItem?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let item = itemToEdit {
+            title = "Edit Item"
+            textField.text = item.text
+            doneBarButton.isEnabled = true
+        }
+    }
+    
     @IBAction func cancel(){
         delegate?.addItemViewControllerDidCancel(controller: self)
     }
     
     @IBAction func done(){
-        let item = ChecklistItem()
-        item.text = textField.text!
-        item.checked = false
-        
-        delegate?.addItemViewController(controller: self, didFinishAddingItem: item)
+        if let item = itemToEdit {
+            item.text = textField.text!
+            delegate?.addItemViewController(controller: self, didFinishEditingItem: item)
+        } else {
+            let item = ChecklistItem()
+            item.text = textField.text!
+            item.checked = false
+            delegate?.addItemViewController(controller: self, didFinishAddingItem: item)
+        }
     }
     
     @IBOutlet weak var textField: UITextField!

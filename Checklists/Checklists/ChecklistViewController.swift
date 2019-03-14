@@ -14,13 +14,12 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     // but it does not actually create that array.
     // At this point, items does not have a value yet.
     var items : [ChecklistItem]
-    
+        
     required init?(coder aDecoder: NSCoder) {
         
         // This instantiates the array. Now items contains a valid array object,
         // but the array has no ChecklistItem objects inside it yet.
         items = [ChecklistItem]()
-        
         // This instantiates a new ChecklistItem object. Notice the ().
         let row0item = ChecklistItem()
         // Give values to the data items inside the new ChecklistItem object.
@@ -56,7 +55,6 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -94,10 +92,12 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     }
     
     func configureCheckmarkForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
-        if item.checked {
-            cell.accessoryType = .checkmark
+        let label = cell.viewWithTag(1001) as! UILabel
+        
+        if item.checked{
+            label.text = "√"
         } else {
-            cell.accessoryType = .none
+            label.text = ""
         }
     }
     
@@ -123,17 +123,38 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         dismiss(animated: true, completion: nil)
     }
     
+    func addItemViewController(controller: AddItemViewController,
+                               didFinishEditingItem item: ChecklistItem) {
+        if let index = items.index(of: item) {
+            let indexPath = NSIndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath as IndexPath) {
+                configureTextForCell(cell: cell, withChecklistItem: item)
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //1
         if segue.identifier == "AddItem" {
-            // 2
+
             let navigationController = segue.destination
                 as! UINavigationController
-            // 3
             let controller = navigationController.topViewController
                 as! AddItemViewController
-            // 4
             controller.delegate = self
+            
+        } else if segue.identifier == "EditItem"{
+            
+            let navigationController = segue.destination
+                as! UINavigationController
+            let controller = navigationController.topViewController
+                as! AddItemViewController
+            controller.delegate = self
+            if let indexPath = tableView.indexPath(
+                for: sender as! UITableViewCell) {
+                controller.itemToEdit = items[indexPath.row]
+            }
         }
     }
     
