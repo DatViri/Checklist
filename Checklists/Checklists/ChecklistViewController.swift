@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
+class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
     
     // This declares that items will hold an array of ChecklistItem objects
     // but it does not actually create that array.
@@ -107,11 +107,11 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     }
     
     
-    func addItemViewControllerDidCancel(controller: AddItemViewController) {
+    func itemDetailViewControllerDidCancel(controller: ItemDetailViewController) {
         dismiss(animated: true, completion: nil)
     }
     
-    func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ChecklistItem) {
+    func itemDetailViewController(controller: ItemDetailViewController, didFinishAddingItem item: ChecklistItem) {
         
         let newRowIndex = items.count
         items.append(item)
@@ -123,7 +123,7 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         dismiss(animated: true, completion: nil)
     }
     
-    func addItemViewController(controller: AddItemViewController,
+    func itemDetailViewController(controller: ItemDetailViewController,
                                didFinishEditingItem item: ChecklistItem) {
         if let index = items.index(of: item) {
             let indexPath = NSIndexPath(row: index, section: 0)
@@ -141,7 +141,7 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
             let navigationController = segue.destination
                 as! UINavigationController
             let controller = navigationController.topViewController
-                as! AddItemViewController
+                as! ItemDetailViewController
             controller.delegate = self
             
         } else if segue.identifier == "EditItem"{
@@ -149,7 +149,7 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
             let navigationController = segue.destination
                 as! UINavigationController
             let controller = navigationController.topViewController
-                as! AddItemViewController
+                as! ItemDetailViewController
             controller.delegate = self
             if let indexPath = tableView.indexPath(
                 for: sender as! UITableViewCell) {

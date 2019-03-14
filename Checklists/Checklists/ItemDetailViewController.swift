@@ -1,5 +1,5 @@
 //
-//  AddItemViewController.swift
+//  ItemDetailViewController.swift
 //  Checklists
 //
 //  Created by Dat Truong on 13/03/2019.
@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol AddItemViewControllerDelegate: class {
-    func addItemViewControllerDidCancel(controller: AddItemViewController)
-    func addItemViewController(controller:AddItemViewController,
+protocol ItemDetailViewControllerDelegate: class {
+    func itemDetailViewControllerDidCancel(controller: ItemDetailViewController)
+    func itemDetailViewController(controller:ItemDetailViewController,
                                didFinishAddingItem item: ChecklistItem)
-    func addItemViewController(controller: AddItemViewController,
+    func itemDetailViewController(controller: ItemDetailViewController,
                                didFinishEditingItem item: ChecklistItem)
 }
 
-class AddItemViewController: UITableViewController, UITextFieldDelegate{
+class ItemDetailViewController: UITableViewController, UITextFieldDelegate{
     var itemToEdit: ChecklistItem?
     
     override func viewDidLoad() {
@@ -29,25 +29,25 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate{
     }
     
     @IBAction func cancel(){
-        delegate?.addItemViewControllerDidCancel(controller: self)
+        delegate?.itemDetailViewControllerDidCancel(controller: self)
     }
     
     @IBAction func done(){
         if let item = itemToEdit {
             item.text = textField.text!
-            delegate?.addItemViewController(controller: self, didFinishEditingItem: item)
+            delegate?.itemDetailViewController(controller: self, didFinishEditingItem: item)
         } else {
             let item = ChecklistItem()
             item.text = textField.text!
             item.checked = false
-            delegate?.addItemViewController(controller: self, didFinishAddingItem: item)
+            delegate?.itemDetailViewController(controller: self, didFinishAddingItem: item)
         }
     }
     
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     
-    weak var delegate: AddItemViewControllerDelegate?
+    weak var delegate: ItemDetailViewControllerDelegate?
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath)
         -> IndexPath? {
