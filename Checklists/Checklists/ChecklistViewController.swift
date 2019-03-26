@@ -14,6 +14,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     // but it does not actually create that array.
     // At this point, items does not have a value yet.
     var items : [ChecklistItem]
+    var checklist: Checklist!
         
     required init?(coder aDecoder: NSCoder) {
         
@@ -25,6 +26,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = checklist.name
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -99,7 +101,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     
     func itemDetailViewController(controller: ItemDetailViewController,
                                didFinishEditingItem item: ChecklistItem) {
-        if let index = items.index(of: item) {
+        if let index = items.firstIndex(of: item) {
             let indexPath = NSIndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath as IndexPath) {
                 configureTextForCell(cell: cell, withChecklistItem: item)

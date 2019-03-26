@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		122D1791223933320027B0B8 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122D1790223933320027B0B8 /* ItemDetailViewController.swift */; };
 		128993F72238082200576EF5 /* ChecklistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128993F62238082200576EF5 /* ChecklistItem.swift */; };
+		128E7309224A173800C215F8 /* AllListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128E7308224A173800C215F8 /* AllListsViewController.swift */; };
+		128E730D224A1D0C00C215F8 /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128E730C224A1D0C00C215F8 /* Checklist.swift */; };
+		128E730F224A27AD00C215F8 /* ListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128E730E224A27AD00C215F8 /* ListDetailViewController.swift */; };
 		12F8A7AC2236815A00EC443D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F8A7AB2236815A00EC443D /* AppDelegate.swift */; };
 		12F8A7AE2236815A00EC443D /* ChecklistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F8A7AD2236815A00EC443D /* ChecklistViewController.swift */; };
 		12F8A7B12236815A00EC443D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12F8A7AF2236815A00EC443D /* Main.storyboard */; };
@@ -19,6 +22,9 @@
 /* Begin PBXFileReference section */
 		122D1790223933320027B0B8 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		128993F62238082200576EF5 /* ChecklistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistItem.swift; sourceTree = "<group>"; };
+		128E7308224A173800C215F8 /* AllListsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListsViewController.swift; sourceTree = "<group>"; };
+		128E730C224A1D0C00C215F8 /* Checklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
+		128E730E224A27AD00C215F8 /* ListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailViewController.swift; sourceTree = "<group>"; };
 		12F8A7A82236815A00EC443D /* Checklists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checklists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12F8A7AB2236815A00EC443D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12F8A7AD2236815A00EC443D /* ChecklistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChecklistViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +72,9 @@
 				12F8A7B72236815B00EC443D /* Info.plist */,
 				128993F62238082200576EF5 /* ChecklistItem.swift */,
 				122D1790223933320027B0B8 /* ItemDetailViewController.swift */,
+				128E7308224A173800C215F8 /* AllListsViewController.swift */,
+				128E730C224A1D0C00C215F8 /* Checklist.swift */,
+				128E730E224A27AD00C215F8 /* ListDetailViewController.swift */,
 			);
 			path = Checklists;
 			sourceTree = "<group>";
@@ -102,6 +111,7 @@
 				TargetAttributes = {
 					12F8A7A72236815A00EC443D = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -142,8 +152,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				12F8A7AE2236815A00EC443D /* ChecklistViewController.swift in Sources */,
+				128E730F224A27AD00C215F8 /* ListDetailViewController.swift in Sources */,
 				122D1791223933320027B0B8 /* ItemDetailViewController.swift in Sources */,
+				128E730D224A1D0C00C215F8 /* Checklist.swift in Sources */,
 				128993F72238082200576EF5 /* ChecklistItem.swift in Sources */,
+				128E7309224A173800C215F8 /* AllListsViewController.swift in Sources */,
 				12F8A7AC2236815A00EC443D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,7 +312,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dattruong.Checklists;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -317,7 +330,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dattruong.Checklists;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
